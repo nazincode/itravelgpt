@@ -60,8 +60,8 @@ app.post("/", async (req, res) => {
         });
     } catch (err) {
         console.log("FAILED: ", req.body.input);
-        console.error(err);
-        res.status(500).send(err);
+        console.error(err.response.data);
+        res.status(500).send(err.response.data);
     }
 });
 
@@ -99,6 +99,10 @@ app.post("/login", async(req, res) => {
 })
 
 
-app.listen(4000, () => console.log("Server is running on port 4000"));
 
-
+if(process.env.NODE_ENV !== 'production') {
+    app.listen(4000, () => {
+      console.log(`Server is running on port http://localhost:${port}`);
+    });
+  }
+  export default app;
